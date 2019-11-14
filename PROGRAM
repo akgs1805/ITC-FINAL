@@ -69,7 +69,7 @@ void tax :: client(payee pay)
 	string dummy;
     MYSQL* conn;
     conn = mysql_init(0);
-    conn = mysql_real_connect(conn, "192.168.100.20", "admin_anil", "admin", "incometax", 0, NULL, 0);
+    conn = mysql_real_connect(conn, "localhost", "admin_anil", "admin", "incometax", 0, NULL, 0);
     if(conn){
 	cout<<"welcome client"<<endl;
 	cout<<"enter the empid"<<endl;
@@ -151,7 +151,7 @@ int tax :: display(payee pay)
    	MYSQL_ROW row;
    	MYSQL_RES* res;
    	conn = mysql_init(0);
-   	conn = mysql_real_connect(conn,"192.168.100.20","admin_anil","admin","incometax",0,NULL,0);
+   	conn = mysql_real_connect(conn,"localhost","admin_anil","admin","incometax",0,NULL,0);
    	if(conn){
         int qstate = mysql_query(conn, "SELECT Id, Taxid, Age, basicsalary, hra, specialalowance, lta, hradedu, ltadedu, providfund, medicalallow, savings, otherincome, totalincometax FROM client");
 	cout<<" ID "<<"\t | \t"<<"TaxId"<<"\t | \t"<<"Age"<<"\t | \t" <<"Basicsalary"<<"\t | \t" <<"HRA"<<"\t | \t" <<"SPECIALALLOWAN"<<"\t | \t" <<"LTA"<<"\t | \t"<<"HRA dedu"<<"\t | \t"<<"LTA dedu"<<"\t | \t"<<"Providentfunding"<<"\t | \t"<<"MedAllowance"<<"\t | \t"<<"Savings"<<"\t | \t"<<"OtherIncome"<<"\t | \t"<<"IncomeTaxpayable"<<"\t | \t"<<endl<<endl;
@@ -214,10 +214,10 @@ void tax :: update()
     MYSQL_ROW row;
     MYSQL_RES* res;
     conn = mysql_init(0);
-    conn = mysql_real_connect(conn, "192.168.100.20", "admin_anil", "admin", "incometax", 0, NULL, 0);
+    conn = mysql_real_connect(conn, "localhost", "admin_anil", "admin", "incometax", 0, NULL, 0);
 
     conn2 = mysql_init(0);
-    conn2 = mysql_real_connect(conn, "192.168.100.20", "admin_anil", "admin", "incometax", 0, NULL, 0);;
+    conn2 = mysql_real_connect(conn, "localhost", "admin_anil", "admin", "incometax", 0, NULL, 0);;
 
     if(conn){
 
@@ -261,7 +261,7 @@ void tax :: allow()
    	MYSQL_ROW row;
    	MYSQL_RES* res;
    	conn = mysql_init(0);
-   	conn = mysql_real_connect(conn,"192.168.100.20","admin_anil","admin","incometax",0,NULL,0);
+   	conn = mysql_real_connect(conn,"localhost","admin_anil","admin","incometax",0,NULL,0);
 		if(conn){
         int qstate = mysql_query(conn, "SELECT  Id,hra,hradedu,lta,ltadedu  FROM client ");
         cout<<" ID \t | \t HRA \t | \t HRADEDU \t | \t LTA \t | \t LTADEDU \t | \t"<<endl;
@@ -288,7 +288,7 @@ void tax :: total()
     MYSQL_ROW row;
     MYSQL_RES* res;
     conn = mysql_init(0);
-    conn = mysql_real_connect(conn, "192.168.100.20", "admin_anil", "admin", "incometax", 0, NULL, 0);
+    conn = mysql_real_connect(conn, "localhost", "admin_anil", "admin", "incometax", 0, NULL, 0);
     if(conn){
         int qstate = mysql_query(conn, "SELECT sum(totalincometax) FROM client");
         cout<<"Total Amount Need to be collected:";
