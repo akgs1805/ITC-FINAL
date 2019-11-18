@@ -43,12 +43,12 @@ class tax
 int tax :: entry()
 {
 	int entry;
-		cout<<"*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&**&*&*&**&*&*&*&*&*&*&*&"<<endl;
-		cout<<"WELCOME TO TAX CALCULATOR"<<endl;
-		cout<<"press 1 to continue if ur admin"<<endl;
-		cout<<"press 2 to continue to submit ur income tax reports"<<endl;
-		cout<<"press 3 to exit"<<endl;
-		cout<<"*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&**&*&*&**&*&*&*&*&*&*&*&"<<endl<<endl;
+		cout<<"\t\t\t\t\t*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&**&*&*&**&*&*&*&*&*&*&*&"<<endl;
+		cout<<"\t\t\t\t\t\t\t\t\tWELCOME TO TAX CALCULATOR"<<endl;
+		cout<<"\t\t\t\t\t\t\t\tpress 1 to continue if ur admin"<<endl;
+		cout<<"\t\t\t\t\t\t\t\tpress 2 to continue to submit ur income tax reports"<<endl;
+		cout<<"\t\t\t\t\t\t\t\tpress 3 to exit"<<endl;
+		cout<<"\t\t\t\t\t*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&**&*&*&**&*&*&*&*&*&*&*&"<<endl<<endl;
 		cout<<"Enter the CHOICE: ";
 		cin>>entry;
     	switch(entry)
@@ -154,12 +154,12 @@ int tax :: display(payee pay)
    	conn = mysql_real_connect(conn,"localhost","admin_anil","admin","incometax",0,NULL,0);
    	if(conn){
         int qstate = mysql_query(conn, "SELECT Id, Taxid, Age, basicsalary, hra, specialalowance, lta, hradedu, ltadedu, providfund, medicalallow, savings, otherincome, totalincometax FROM client");
-	cout<<" ID "<<"\t | \t"<<"TaxId"<<"\t | \t"<<"Age"<<"\t | \t" <<"Basicsalary"<<"\t | \t" <<"HRA"<<"\t | \t" <<"SPECIALALLOWAN"<<"\t | \t" <<"LTA"<<"\t | \t"<<"HRA dedu"<<"\t | \t"<<"LTA dedu"<<"\t | \t"<<"Providentfunding"<<"\t | \t"<<"MedAllowance"<<"\t | \t"<<"Savings"<<"\t | \t"<<"OtherIncome"<<"\t | \t"<<"IncomeTaxpayable"<<"\t | \t"<<endl<<endl;
+	cout<<" ID "<<"\t | "<<"TaxId"<<"\t | "<<"Age"<<"\t | " <<"Basicsalary"<<"\t | " <<"HRA"<<"\t\t | " <<"SPECALLOWAN"<<"\t | " <<"LTA"<<"\t\t| "<<"HRA dedu"<<"\t | "<<"LTA dedu"<<"\t | "<<"Profunding"<<"\t | "<<"MedAllowance"<<"\t | "<<"Savings"<<"\t | "<<"OtherIncome"<<"\t | "<<"GrossTaxpay"<<"\t | "<<endl<<endl;
         if(!qstate){
             res = mysql_store_result(conn);
 
             while(row = mysql_fetch_row(res)){
-                cout << row[0] <<"\t | \t" << row[1] <<"\t | \t" << row[2] <<"\t | \t" << row[3] <<"\t | \t"<< row[4] <<"\t | \t" << row[5] <<"\t | \t"<< row[6] <<"\t | \t"<< row[7] <<"\t | \t"<< row[8] <<"\t | \t"<< row[9] <<"\t | \t" << row[10] <<"\t | \t"<< row[11] <<"\t | \t"<< row[12] <<"\t | \t"<< row[13] <<"\t | \t"<<endl << endl<<endl<<endl;
+                cout << row[0] <<"\t | " << row[1] <<"\t | " << row[2] <<"\t | " << row[3] <<"\t | "<< row[4] <<"\t | " << row[5] <<"\t | "<< row[6] <<"\t | "<< row[7] <<"\t | "<< row[8] <<"\t | "<< row[9] <<"\t | " << row[10] <<"\t | "<< row[11] <<"\t\t | "<< row[12] <<"\t | "<< row[13] <<"\t | "<<endl << endl<<endl<<endl;
              }
         }
     }
@@ -182,7 +182,7 @@ int tax :: admin(payee pay)
 	cout<<" press 2 to exit"<<endl;
 	cout<<" press 3 to update particular record of other income"<<endl;
 	cout<<" press 4 to view the selected client allowance (extra) details of income tax"<<endl;
-	cout<<" press 5 to see total amount of tax needed to be collected from clients "<<endl;
+	cout<<" press 5 to see max amount of tax payer needed of all clients "<<endl;
 	cout<<"*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&**&*&*&**&*&*&*&*&*&*&*&"<<endl;
 	cout<<" Enter the Choice: ";
 	cin>>ch;
@@ -290,8 +290,8 @@ void tax :: total()
     conn = mysql_init(0);
     conn = mysql_real_connect(conn, "localhost", "admin_anil", "admin", "incometax", 0, NULL, 0);
     if(conn){
-        int qstate = mysql_query(conn, "SELECT sum(totalincometax) FROM client");
-        cout<<"Total Amount Need to be collected:";
+        int qstate = mysql_query(conn, "SELECT max(totalincometax) FROM client");
+        cout<<"Total Max gross amount out of all :";
         if(!qstate){
             res = mysql_store_result(conn);
 
