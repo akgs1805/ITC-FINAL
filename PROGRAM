@@ -32,7 +32,9 @@ class tax
 {
 	public:  int entry();
 			 int admin(payee pay);
-			 void client(payee pay);
+			 int client(payee pay);
+			 void insertclient(payee pay);
+			 int dispclient(payee pay);
 			 int calculate(payee pay);
 			 int display(payee pay);
 			 void update();
@@ -64,7 +66,7 @@ int tax :: entry()
 		}
 }
 
-void tax :: client(payee pay)
+void tax :: insertclient(payee pay)
 {
 	string dummy;
     MYSQL* conn;
@@ -308,6 +310,67 @@ void tax :: total()
     system("pause");
     system("cls");
 
+}
+
+int tax :: dispclient(payee pay)
+{
+    string dummy;
+    MYSQL* conn;
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    conn = mysql_init(0);
+    conn = mysql_real_connect(conn, "localhost", "admin_anil", "admin", "incometax", 0, NULL, 0);
+    if(conn){
+        int qstate = 0;
+        int id;
+        cout << "Enter id : ";
+        cin >> id;
+
+        stringstream ss;
+        ss << "SELECT Id, Taxid, Age, basicsalary, hra, specialalowance, lta, hradedu, ltadedu, providfund, medicalallow, savings, otherincome, totalincometax  from client  WHERE taxid = '" << id << "'";
+
+        string query = ss.str();
+
+        const char* q = query.c_str();
+        qstate = mysql_query(conn, q);
+
+		cout<<" ID "<<"\t | "<<"TaxId"<<"\t | "<<"Age"<<"\t | " <<"Basicsalary"<<"\t | " <<"HRA"<<"\t\t | " <<"SPECALLOWAN"<<"\t | " <<"LTA"<<"\t\t| "<<"HRA dedu"<<"\t | "<<"LTA dedu"<<"\t | "<<"Profunding"<<"\t | "<<"MedAllowance"<<"\t | "<<"Savings"<<"\t | "<<"OtherIncome"<<"\t | "<<"GrossTaxpay"<<"\t | "<<endl<<endl;
+
+        if(!qstate){
+            res = mysql_store_result(conn);
+
+            while(row = mysql_fetch_row(res)){
+                    cout << row[0] <<"\t | " << row[1] <<"\t | " << row[2] <<"\t | " << row[3] <<"\t | "<< row[4] <<"\t | " << row[5] <<"\t | "<< row[6] <<"\t | "<< row[7] <<"\t | "<< row[8] <<"\t | "<< row[9] <<"\t | " << row[10] <<"\t | "<< row[11] <<"\t\t | "<< row[12] <<"\t | "<< row[13] <<"\t | "<<endl << endl<<endl<<endl;
+
+             }
+        }
+	system("pause");
+    system("cls");
+}
+}
+
+int tax :: client(payee pay)
+{
+	int entry;
+		cout<<"\t\t\t\t\t*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&**&*&*&**&*&*&*&*&*&*&*&"<<endl;
+		cout<<"\t\t\t\t\t\t\t\t\tWELCOME TO client"<<endl;
+		cout<<"\t\t\t\t\t\t\t\tpress 1 to continue if you want to enter the records"<<endl;
+		cout<<"\t\t\t\t\t\t\t\tpress 2 to continue to display the record details which is entered"<<endl;
+		cout<<"\t\t\t\t\t\t\t\tpress 3 to continue to exit"<<endl;
+		cout<<"\t\t\t\t\t*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&**&*&*&**&*&*&*&*&*&*&*&"<<endl<<endl;
+		cout<<"Enter the CHOICE: ";
+		cin>>entry;
+    	switch(entry)
+    	{
+    		case 1: insertclient(pay);
+    				break;
+    		case 2: dispclient(pay);
+    				break;
+    		case 3: exit(0);
+    				break;
+    		default: cout<< "please enter the correct choice";
+    				break;
+		}
 }
 
 int main()
